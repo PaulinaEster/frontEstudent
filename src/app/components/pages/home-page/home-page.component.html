@@ -1,0 +1,6 @@
+<br>
+<div *ngIf="students" class="container">
+  <div class="row"> 
+    <app-user-list  *ngFor="let stu of students"  [student]="stu"> </app-user-list>
+  </div>
+</div>

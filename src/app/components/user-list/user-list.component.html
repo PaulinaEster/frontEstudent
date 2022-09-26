@@ -1,0 +1,20 @@
+<div class="col-sm-6">
+  <div class="card border-{{style}}  mb-3">
+    <div class="card-body text-dark">
+      <div class="row card-header bg-transparent text-{{style}} ">
+        <h4 class="border-{{style}} col-2 ">{{student.percentage}}%</h4>
+        <div class="col-10">
+          <div class="progress">
+            <div class="progress-bar bg-{{style}}" role="progressbar" style="width: {{student.percentage}}%"
+              aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{student.name}}</h5>
+        <p class="card-text">{{ student.department.departmentName }} in {{ student.department.location }} </p>
+      </div>
+      <a routerLink="/students/{{student.id}}" class="btn btn-info">Go to details</a>
+    </div>
+  </div>
+</div>

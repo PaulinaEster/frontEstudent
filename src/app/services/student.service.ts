@@ -27,4 +27,14 @@ export class StudentService {
     return this.http.post<Student>(url, newStu);
   }
 
+  deleteStudentById(id: String): Observable<Student>{
+    let url = `${this.baseUrl}deleteById/${id}`;
+    return this.http.delete<Student>(url);
+  }
+
+  upadateStudent(student: Student): Observable<Student>{
+    let url = `${this.baseUrl}update`;
+    return this.http.put<Student>(url, student);
+  }
+
 }

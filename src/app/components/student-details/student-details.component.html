@@ -1,10 +1,111 @@
-<div>
-  <p>{{student.name}}</p>
-<p>{{student.email}}</p>
-<p>{{student.percentage}}</p>
-<ul>
-  <li><a > Editar departmentos </a></li> 
-  <li><a > Editar Subjects </a></li> 
-  <li><a > Deletar Student </a></li> 
-</ul>
+<div class="container">
+  <br>
+  <div>
+    <div class="card text-center">
+      <div class="card-header"> 
+         Student details
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">{{student.name}}</h5>
+            <p class="card-text"> {{student.department.departmentName}} in {{student.department.location}}</p>
+            <p class="card-text"> {{student.description}}</p>
+          </div>
+          <ul class="list-group col">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let sub of student.subjects" >
+              {{sub.subjectName}}
+              <span class="badge bg-primary rounded-pill">{{sub.marksObtained}}%</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="card-footer text-muted">
+        <div class="progress">
+          <div class="progress-bar bg-dark" role="progressbar" style="width: {{student.percentage}}%" aria-valuenow="50"
+            aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div *ngIf="time == true" class="alert alert-danger" role="alert">
+    Estudante FOI DELETADO com sucesso!!! 
+  </div>
+  <br>
+  <div class="row" role="group">
+    <a (click)="editSubject = !editSubject" class="btn btn-primary col me-2 mb-2">Add subjects</a>
+    <a (click)="editDep = !editDep" class="btn btn-primary col me-2 mb-2">Edit department</a>
+    <a (click)="editInfos = !editInfos" class="btn btn-primary col me-2 mb-2">Edit infos</a> 
+    <a (click)="onDeleteStudent()" class="btn btn-danger col me-2 mb-2">Delete student</a>
+  </div>
+  <hr>
+  <div *ngIf="alert.mensagem.length > 0" class="alert alert-{{alert.type}}" role="alert">
+    {{alert.mensagem}}
+  </div>
+</div>
+
+
+<div class="container"  *ngIf="editDep || editSubject || editInfos">
+  <div class="row" *ngIf="editInfos"  >
+    <h4 class="form-label">Student infos</h4>
+    <div class="col-sm-6">
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="student.name" placeholder="Name Example">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="mb-3">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-control" [(ngModel)]="student.email" placeholder="name@example.com">
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" [(ngModel)]="student.description" rows="3"></textarea>
+      </div>
+    </div>
+    <hr>
+    <br>
+  </div>
+  <div class="row" *ngIf="editDep" >
+    <h4 class="form-label">Department </h4>
+    <div class="col-sm-6">
+      <div class="mb-3">
+        <label class="form-label">Department name</label>
+        <input type="text" class="form-control" [(ngModel)]="student.department.departmentName" placeholder="Name department">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" class="form-control" [(ngModel)]="student.department.location" placeholder="Hortolandia, RJ - BR">
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="row" *ngIf="editSubject" >
+    <h4 class="form-label">Subjects</h4>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <button class="btn btn-outline-secondary" type="button" (click)="addSubject()" >Add subject</button>
+        <input type="text" placeholder="subject name" [(ngModel)]="subject.subjectName" class="form-control">
+        <span class="input-group-text">% concluido</span>
+        <input type="number" placeholder="concluido" [(ngModel)]="subject.marksObtained"  class="form-control" >
+      </div>
+    </div>
+    <div class="col-sm-4" *ngIf="student.subjects!.length > 0">
+      <ul class="list-group" *ngFor="let sub of student.subjects; let i = index">
+        <li class="list-group-item">
+          <input class="form-check-input me-1" type="button" (click)="removeSubject(i)"   value="X" >
+          <label class="form-check-label stretched-link" >{{ sub.subjectName }} - {{ sub.marksObtained }}%</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <button type="button" class="btn btn-success" (click)="onUpdateStudent()" >Salvar</button>
 </div>

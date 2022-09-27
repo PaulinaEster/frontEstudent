@@ -16,6 +16,7 @@ export class CreateStudentComponent implements OnInit {
   student: Student = {
     name: "",
     email: "",
+    description: "",
     department: {
       departmentName: "",
       location: ""
